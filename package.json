@@ -5,6 +5,10 @@
   "main": "dist/cjs/index.js",
   "module": "dist/index.js",
   "types": "dist/types/index.d.ts",
+  "repository": {
+    "type": "github",
+    "url": "https://github.com/letconstvar/ant-plus-components.git"
+  },
   "files": [
     "dist"
   ],
@@ -12,7 +16,15 @@
     "build": "rollup -c",
     "test": "jest"
   },
-  "keywords": [],
+  "keywords": [
+    "antd",
+    "ant-plus",
+    "ant-design",
+    "react",
+    "ant-plus-components",
+    "AntFormPlus",
+    "AntTablePlus"
+  ],
   "author": "zhou",
   "license": "ISC",
   "dependencies": {
