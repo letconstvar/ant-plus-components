@@ -1,7 +1,7 @@
 {
   "type": "module",
   "name": "ant-plus-components",
-  "version": "0.0.2",
+  "version": "0.0.2-beta.1",
   "main": "dist/cjs/index.js",
   "module": "dist/index.js",
   "types": "dist/types/index.d.ts",
