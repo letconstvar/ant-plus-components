@@ -25,7 +25,7 @@
     "AntFormPlus",
     "AntTablePlus"
   ],
-  "author": "zhou",
+  "author": "zhouzhu96@gmail.com",
   "license": "ISC",
   "dependencies": {
     "antd": "^5.7.0",
