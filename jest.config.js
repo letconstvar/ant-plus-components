@@ -1,13 +1,13 @@
 export default {
-  preset: 'ts-jest',
-  testEnvironment: 'jsdom',
+  preset: "ts-jest",
+  testEnvironment: "jsdom",
   moduleNameMapper: {
-    '^@/types/(.*)$': '<rootDir>/packages/types/$1',
-    '^@/utils/(.*)$': '<rootDir>/packages/utils/src/$1',
-    '^@/components/(.*)$': '<rootDir>/packages/components/$1'
+    "^@/types/(.*)$": "<rootDir>/packages/types/$1",
+    "^@/utils/(.*)$": "<rootDir>/packages/utils/src/$1",
+    "^@/components/(.*)$": "<rootDir>/packages/components/$1",
   },
   transform: {
-    '^.+\\.tsx?$': 'ts-jest'
+    "^.+\\.tsx?$": "ts-jest",
   },
-  extensionsToTreatAsEsm: ['.ts', '.tsx']
+  extensionsToTreatAsEsm: [".ts", ".tsx"],
 };
