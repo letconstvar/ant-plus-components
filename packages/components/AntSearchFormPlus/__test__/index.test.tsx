@@ -1,6 +1,7 @@
+import React from "react";
 import { fireEvent, render, screen } from "@testing-library/react";
-import AntSearchFormPlus from "@/components/AntSearchFormPlus/index";
-import type { ColumnPlus } from "@/types/index";
+import AntSearchFormPlus from "../index";
+import type { ColumnPlus } from "../../../types";
 import "@testing-library/jest-dom";
 import { Form } from "antd";
 
