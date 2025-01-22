@@ -1,6 +1,7 @@
+import React from "react";
 import { render, screen } from "@testing-library/react";
 import AntTablePlus from "../index";
-import type { ColumnPlus } from "@/types/index";
+import type { ColumnPlus } from "../../../types";
 import "@testing-library/jest-dom";
 
 beforeAll(() => {
