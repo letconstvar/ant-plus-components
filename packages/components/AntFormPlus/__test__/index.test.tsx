@@ -1,6 +1,7 @@
-import { fireEvent, render, screen } from "@testing-library/react";
-import AntFormPlus from "@/components/AntFormPlus/index";
-import type { ColumnPlus } from "@/types/index";
+import React from "react";
+import { fireEvent, render, screen, act } from "@testing-library/react";
+import AntFormPlus from "../index";
+import type { ColumnPlus } from "../../../types";
 import "@testing-library/jest-dom";
 import { Form } from "antd";
 
@@ -55,11 +56,13 @@ describe("AntFormPlus 组件", () => {
     expect(input).toBeRequired();
   });
 
-  it("正确获取 input name 输入表单的值", () => {
+  it("正确获取 input name 输入表单的值", async () => {
     const { container, getByLabelText } = render(<Wrapper />);
     const input = getByLabelText("Name");
 
-    fireEvent.change(input, { target: { value: "111" } });
+    await act(async () => {
+      fireEvent.change(input, { target: { value: "111" } });
+    });
 
     expect(container.querySelector("#name")).toHaveValue("111");
   });
