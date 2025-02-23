@@ -2,7 +2,8 @@ import { Form, Row, type FormProps, type RowProps } from "antd";
 import type { ColumnPlus } from "@/types/index";
 import { memo, useEffect, useState } from "react";
 
-import getOptionsByColumns from "@/utils/getOptionsByColumns";
+import React from 'react';
+import getOptionsByColumns from "@/utils/src/getOptionsByColumns";
 import RenderFormItem from "@/components/RenderFormItem";
 import AntFormItemWrap from "@/components/AntFormItemWrap";
 

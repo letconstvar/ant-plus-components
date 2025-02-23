@@ -1,8 +1,9 @@
+import React from 'react';
 import { Table } from "antd";
 import type { ColumnPlus } from "@/types/index";
 import { memo, useRef } from "react";
 import type { TableProps } from "antd/es/table";
-import omit from "@/utils/omit";
+import omit from "@/utils/src/omit";
 import type { AnyObject } from "antd/es/_util/type";
 import type { ColumnType } from "antd/lib/table";
 

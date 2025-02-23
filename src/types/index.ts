@@ -23,7 +23,7 @@ type ValueType =
 
 type Search = {
   col: ColProps;
-}
+};
 
 export interface ColumnPlus extends ColumnType {
   dataIndex: string;
