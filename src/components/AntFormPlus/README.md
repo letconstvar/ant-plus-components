@@ -13,18 +13,18 @@
 ## 安装
 
 ```bash
-npm install @ant-plus-components/components
+npm install @ant-plus-components
 # 或者
-yarn add @ant-plus-components/components
+yarn add @ant-plus-components
 # 或者
-pnpm add @ant-plus-components/components
+pnpm add @ant-plus-components
 ```
 
 ## 使用方法
 
 ```tsx
-import { AntFormPlus } from '@ant-plus-components/components';
-import type { ColumnPlus } from '@ant-plus-components/components';
+import { AntFormPlus } from '@ant-plus-components';
+import type { ColumnPlus } from '@ant-plus-components';
 
 const columns: ColumnPlus[] = [
   {
@@ -37,7 +37,7 @@ const columns: ColumnPlus[] = [
   {
     title: '年龄',
     dataIndex: 'age',
-    type: 'number'
+    type: 'input'
   },
   {
     title: '性别',
