@@ -1,8 +1,7 @@
 import { Form, Row, type FormProps, type RowProps } from "antd";
 import type { ColumnPlus } from "@/types/index";
-import { memo, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
-import React from 'react';
 import getOptionsByColumns from "@/utils/src/getOptionsByColumns";
 import RenderFormItem from "@/components/RenderFormItem";
 import AntFormItemWrap from "@/components/AntFormItemWrap";
@@ -13,7 +12,7 @@ const defaultForm = {
   },
 };
 
-export default memo(function AntFormPlus<Values>({
+export default function AntFormPlus<Values>({
   columns,
   row = {},
   ...rest
@@ -51,4 +50,4 @@ export default memo(function AntFormPlus<Values>({
       </Row>
     </Form>
   );
-});
+};
