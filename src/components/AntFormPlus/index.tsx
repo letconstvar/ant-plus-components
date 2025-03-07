@@ -1,4 +1,4 @@
-import { Form, Row, type FormProps, type RowProps } from "antd";
+import { Form, Row, type ColProps, type FormProps, type RowProps } from "antd";
 import type { ColumnPlus } from "@/types/index";
 import { useEffect, useState } from "react";
 
@@ -6,19 +6,15 @@ import getOptionsByColumns from "@/utils/src/getOptionsByColumns";
 import RenderFormItem from "@/components/RenderFormItem";
 import AntFormItemWrap from "@/components/AntFormItemWrap";
 
-const defaultForm = {
-  col: {
-    span: 24,
-  },
-};
-
 export default function AntFormPlus<Values>({
   columns,
   row = {},
+  col = { span: 6 },
   ...rest
 }: {
   columns: ColumnPlus[];
   row?: RowProps;
+  col?: ColProps;
 } & FormProps<Values>) {
   const [fields, setFields] = useState<ColumnPlus[]>(
     columns
@@ -40,8 +36,8 @@ export default function AntFormPlus<Values>({
       <Row {...row}>
         {fields.map((column, index) => (
           <AntFormItemWrap
-            column={Object.assign({ form: defaultForm }, column)}
-            isSearchForm={false}
+            column={column}
+            col={column?.form?.col || col}
             key={column.dataIndex + index}
           >
             {RenderFormItem(column)}

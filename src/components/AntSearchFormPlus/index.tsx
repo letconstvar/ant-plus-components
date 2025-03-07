@@ -1,19 +1,22 @@
-import { Button, Col, Form, Row, type FormProps, type RowProps } from "antd";
+import {
+  Button,
+  Col,
+  Form,
+  Row,
+  type ColProps,
+  type FormProps,
+  type RowProps,
+} from "antd";
 import type { ColumnPlus } from "@/types/index";
 import { useCallback, useEffect, useState } from "react";
 import AntFormItemWrap from "@/components/AntFormItemWrap";
 import getOptionsByColumns from "@/utils/src/getOptionsByColumns";
 import RenderFormItem from "@/components/RenderFormItem";
 
-const defaultSearchForm = {
-  col: {
-    span: 6,
-  },
-};
-
 export default function AntSearchFormPlus<Values>({
   columns,
   row = { gutter: 24 },
+  col = { span: 6 },
   ignoreRules = true,
   submitButtonText = "查询",
   resetButtonText = "重置",
@@ -22,6 +25,7 @@ export default function AntSearchFormPlus<Values>({
   columns: ColumnPlus[];
   ignoreRules?: boolean;
   row?: RowProps;
+  col?: ColProps;
   submitButtonText?: string;
   resetButtonText?: string;
 } & FormProps<Values>) {
@@ -54,19 +58,15 @@ export default function AntSearchFormPlus<Values>({
       <Row {...row}>
         {fields.map((column, index) => (
           <AntFormItemWrap
-            column={Object.assign(
-              {
-                searchForm: defaultSearchForm,
-              },
-              {
-                ...column,
-                formItemProps: {
-                  ...column.formItemProps,
-                  rules: ignoreRules ? null : column.formItemProps?.rules,
-                },
-              }
-            )}
             key={column.dataIndex + index}
+            col={column?.searchForm?.col || col}
+            column={{
+              ...column,
+              formItemProps: {
+                ...column.formItemProps,
+                rules: ignoreRules ? null : column.formItemProps?.rules,
+              },
+            }}
           >
             {RenderFormItem(column)}
           </AntFormItemWrap>
