@@ -10,16 +10,132 @@ yarn add ant-plus-components
 pnpm add ant-plus-components
 ```
 
-## 基础用法
+## 组件列表
+### AntFormPlus
+基于 Ant Design Form 组件的表单增强版本，提供更便捷的表单项配置和布局功能。
+
+#### 特性
++ 🚀 基于 Ant Design Form 组件开发
++ 📦 自动处理表单布局
++ 🎨 支持丰富的表单项类型
++ 🔄 支持异步选项加载
++ 🎯 支持表单项校验规则配置
++ 支持通过 `hideInForm` 属性控制表单项的显示/隐藏
+
+#### 基础示例
 ```tsx
-import {
-  AntFormPlus,
-  AntSearchFormPlus,
-  AntTablePlus,
-} from "ant-plus-components";
-import type { ColumnPlus } from "ant-plus-components";
-import { Button, Form, Modal } from "antd";
-import { useState } from "react";
+import { AntFormPlus, type ColumnPlus } from "ant-plus-components";
+import { Button, Form } from "antd";
+
+type FormType = {
+  name: string;
+  age: number;
+  address: string;
+};
+
+const columns: ColumnPlus[] = [
+  {
+    title: "姓名",
+    dataIndex: "name",
+    formItemProps: {
+      rules: [{ required: true, message: "请输入姓名" }],
+    },
+    fieldProps: {
+      placeholder: "请输入姓名",
+      allowClear: true,
+    },
+    searchForm: {
+      col: {
+        span: 8, // 默认 span: 6
+      },
+    },
+  },
+  {
+    title: "年龄",
+    dataIndex: "age",
+    type: "input",
+    fieldProps: {
+      placeholder: "请输入年龄",
+      allowClear: true,
+    },
+  },
+  {
+    title: "地址",
+    dataIndex: "address",
+    type: "select",
+    fieldProps: {
+      placeholder: "请选择地址",
+      allowClear: true,
+    },
+    options: [
+      {
+        label: "北京",
+        value: "beijing",
+      },
+      {
+        label: "上海",
+        value: "shanghai",
+      },
+    ],
+  },
+  {
+    title: "操作",
+    dataIndex: "action",
+    hideInSearchForm: true,
+    hideInForm: true,
+  },
+];
+
+export default function TextForm() {
+  const [form] = Form.useForm<FormType>();
+
+  const onFinish = (values: FormType) => {
+    console.log("表单值：", values);
+  };
+
+  return (
+    <>
+      <AntFormPlus
+        columns={columns}
+        form={form}
+        row={{ gutter: 20 }}
+        col={{ span: 12 }}
+        onFinish={onFinish}
+      />
+      <Button type="primary" onClick={() => form.submit()}>
+        提交
+      </Button>
+      <Button onClick={() => form.resetFields()}>重置</Button>
+    </>
+  );
+}
+
+```
+
+#### API
+| 参数 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| columns | 表单配置项 | `ColumnPlus[]` | - |
+| row | <font style="color:rgba(0, 0, 0, 0.88);">栅格化系统，详情请看 </font>[ant row](https://ant-design.antgroup.com/components/grid-cn#row) | `RowProps` | `{ gutter: 24 }` |
+| col | <font style="color:rgba(0, 0, 0, 0.88);">栅格化系统，详情请看 </font>[ant col](https://ant-design.antgroup.com/components/grid-cn#col) | `ColProps` | `{ span: 6 }` |
+| ... | 其它属性均与 Ant Design [表单组件](https://ant-design.antgroup.com/components/form-cn#api)保持一致 |  |  |
+
+
+### AntSearchFormPlus
+基于 Ant Design Form 组件的搜索表单增强版本，提供更便捷的表单项配置和布局功能。
+
+#### 特性
++ 🚀 基于 Ant Design Form 组件开发
++ 📦 自动处理表单布局
++ 🎨 支持丰富的表单项类型
++ 🔍 内置查询和重置功能
++ 🎯 支持异步选项加载
++ 支持通过 `hideInSearchForm` 属性控制搜索表单项的显示/隐藏
+
+#### 基础示例
+```tsx
+import { AntSearchFormPlus, type ColumnPlus } from "ant-plus-components";
+import { Button, Form } from "antd";
 
 type FormType = {
   name: string;
@@ -33,93 +149,116 @@ const columns: ColumnPlus[] = [
     formItemProps: {
       rules: [{ required: true, message: "请输入姓名" }],
     },
+    fieldProps: {
+      placeholder: "请输入姓名",
+      allowClear: true,
+    },
+    searchForm: {
+      col: {
+        span: 8, // 默认 span: 6
+      },
+    },
   },
   {
     title: "年龄",
     dataIndex: "age",
     type: "input",
+    fieldProps: {
+      placeholder: "请输入年龄",
+      allowClear: true,
+    },
+  },
+  {
+    title: "地址",
+    dataIndex: "address",
+    type: "select",
+    fieldProps: {
+      placeholder: "请选择地址",
+      allowClear: true,
+    },
+    options: [
+      {
+        label: "北京",
+        value: "beijing",
+      },
+      {
+        label: "上海",
+        value: "shanghai",
+      },
+    ],
+  },
+  {
+    title: "操作",
+    dataIndex: "action",
+    hideInSearchForm: true,
   },
 ];
 
-const data = [
-  { key: 1, name: "John", age: 32 },
-  { key: 2, name: "Doe", age: 25 },
-];
-
-function App() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
+export default function TestSearchForm() {
   const [form] = Form.useForm<FormType>();
 
-  const onSearch = (values: FormType) => {
-    console.log("表单值：", values);
+  const onSearch2 = (values: FormType) => {
+    console.log("values", values);
   };
 
-  const onFinish = (values: FormType) => {
-    console.log("表单值：", values);
+  const onSearch = (values: FormType) => {
+    console.log("values", values);
   };
 
   return (
     <>
       <AntSearchFormPlus<FormType>
+        col={{ span: 6 }}
+        row={{
+          gutter: 20,
+        }}
+        labelAlign="right"
+        labelCol={{ style: { width: 100 } }}
         columns={columns}
         onFinish={onSearch}
         submitButtonText="搜索"
         resetButtonText="重置"
-      />
-      <div style={{ textAlign: "right", marginBottom: 16 }}>
-        <Button type="primary" onClick={() => setIsModalOpen(true)}>
-          Dialog
-        </Button>
-      </div>
-      <AntTablePlus
+      ></AntSearchFormPlus>
+      {/* 使用子组件时，需传递 form 属性 */}
+      <AntSearchFormPlus<FormType>
+        col={{ span: 6 }}
+        row={{
+          gutter: 20,
+        }}
+        form={form}
+        labelAlign="right"
+        labelCol={{ style: { width: 100 } }}
         columns={columns}
-        dataSource={data}
-        rowKey="key"
-        pagination={{
-          pageSize: 10,
-          total: 20,
-          current: 1,
-          showTotal: (total) => `共 ${total} 条`,
-        }}
-      />
-      <Modal
-        title="Basic Modal"
-        open={isModalOpen}
-        onCancel={() => setIsModalOpen(false)}
-        onOk={() => {
-          form.submit();
-        }}
+        onFinish={onSearch2}
       >
-        <AntFormPlus columns={columns} form={form} onFinish={onFinish} />
-      </Modal>
+        <>
+          <Button type="primary" htmlType="submit">
+            搜索
+          </Button>
+          <Button onClick={() => form.resetFields()}>重置</Button>
+        </>
+      </AntSearchFormPlus>
     </>
   );
 }
+
 ```
 
-## 组件列表
-### AntFormPlus
-基于 Ant Design Form 组件的表单增强版本，提供更便捷的表单项配置和布局功能。
+#### API
+| 参数 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| columns | 表单配置项 | `ColumnPlus[]` | - |
+| row | <font style="color:rgba(0, 0, 0, 0.88);">栅格化系统，详情请看 </font>[ant row](https://ant-design.antgroup.com/components/grid-cn#row) | `RowProps` | `{ gutter: 24 }` |
+| col | <font style="color:rgba(0, 0, 0, 0.88);">栅格化系统，详情请看 </font>[ant col](https://ant-design.antgroup.com/components/grid-cn#col) | `ColProps` | `{ span: 6 }` |
+| ignoreRules | <font style="color:rgba(0, 0, 0, 0.88);">忽略表单校验项</font> | `boolean` | `true` |
+| submitButtonText | <font style="color:rgba(0, 0, 0, 0.88);">查询按钮文字</font> | `string` | 查询 |
+| resetButtonText | <font style="color:rgba(0, 0, 0, 0.88);">重置按钮文字</font> | `string` | 重置 |
+| children | <font style="color:rgba(0, 0, 0, 0.88);">当使用子组件时，</font>`<font style="color:rgba(0, 0, 0, 0.88);">submitButtonText</font>`<font style="color:rgba(0, 0, 0, 0.88);">和</font>`<font style="color:rgba(0, 0, 0, 0.88);">resetButtonText</font>`<font style="color:rgba(0, 0, 0, 0.88);">会失效</font> | `React.ReactNode` | - |
+| ... | 其它属性均与 Ant Design [表单组件](https://ant-design.antgroup.com/components/form-cn#api)保持一致 |  |  |
 
-#### 特性
-+ 🚀 基于 Ant Design Form 组件开发
-+ 📦 自动处理表单布局
-+ 🎨 支持丰富的表单项类型
-+ 🔄 支持异步选项加载
-+ 🎯 支持表单项校验规则配置
-+ 支持通过 `hideInForm` 属性控制表单项的显示/隐藏
 
-### AntSearchFormPlus
-基于 Ant Design Form 组件的搜索表单增强版本，提供更便捷的表单项配置和布局功能。
-
-#### 特性
-+ 🚀 基于 Ant Design Form 组件开发
-+ 📦 自动处理表单布局
-+ 🎨 支持丰富的表单项类型
-+ 🔍 内置查询和重置功能
-+ 🎯 支持异步选项加载
-+ 支持通过 hideInSearchForm 属性控制搜索表单项的显示/隐藏
+#### <font style="color:#DF2A3F;">注意事项</font>
+<font style="color:rgba(0, 0, 0, 0.88);">当 AntSearchFormPlus 传递子组件时，</font>`<font style="color:rgba(0, 0, 0, 0.88);">submitButtonText</font>`<font style="color:rgba(0, 0, 0, 0.88);">和</font>`<font style="color:rgba(0, 0, 0, 0.88);">resetButtonText</font>`<font style="color:rgba(0, 0, 0, 0.88);">会失效，同时也需传递</font>`<font style="color:rgba(0, 0, 0, 0.88);">form</font>`<font style="color:rgba(0, 0, 0, 0.88);">属性。</font>
 
 ### AntTablePlus
 基于 Ant Design Table 组件的增强版本，提供更便捷的列配置和过滤功能。
@@ -130,6 +269,99 @@ function App() {
 + 支持表格分页、排序、筛选、自定义渲染等功能
 + 与 AntFormPlus、AntSearchFormPlus 组件无缝集成
 + 使用 TypeScript 编写，提供完整的类型定义
+
+#### 基础示例
+```tsx
+import { AntTablePlus, type ColumnPlus } from "ant-plus-components";
+import { Space } from "antd";
+
+const columns: ColumnPlus[] = [
+  {
+    title: "姓名",
+    dataIndex: "name",
+    formItemProps: {
+      rules: [{ required: true, message: "请输入姓名" }],
+    },
+    fieldProps: {
+      placeholder: "请输入姓名",
+      allowClear: true,
+    },
+    searchForm: {
+      col: {
+        span: 8, // 默认 span: 6
+      },
+    },
+  },
+  {
+    title: "年龄",
+    dataIndex: "age",
+    type: "input",
+    fieldProps: {
+      placeholder: "请输入年龄",
+      allowClear: true,
+    },
+  },
+  {
+    title: "地址",
+    dataIndex: "address",
+    type: "select",
+    fieldProps: {
+      placeholder: "请选择地址",
+      allowClear: true,
+    },
+    options: [
+      {
+        label: "北京",
+        value: "beijing",
+      },
+      {
+        label: "上海",
+        value: "shanghai",
+      },
+    ],
+  },
+  {
+    title: "操作",
+    dataIndex: "action",
+    hideInSearchForm: true,
+    hideInForm: true,
+    render: (_, record) => (
+      <Space size="middle">
+        <a>Invite {record.name}</a>
+        <a>Delete</a>
+      </Space>
+    ),
+  },
+];
+
+export default function TestTable() {
+  const data = [
+    { key: 1, name: "John", age: 32, address: "Beijing" },
+    { key: 2, name: "Doe", age: 25, address: "Shanghai" },
+  ];
+
+  return (
+    <AntTablePlus
+      columns={columns}
+      dataSource={data}
+      rowKey="key"
+      pagination={{
+        pageSize: 10,
+        total: 20,
+        current: 1,
+        showTotal: (total) => `共 ${total} 条`,
+      }}
+      />
+  );
+}
+```
+
+#### API
+| 参数 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| columns | 表格列配置项 | `ColumnPlus[]` | - |
+| ... | 其它属性均与 Ant Design [表格组件](https://ant-design.antgroup.com/components/table-cn#column)保持一致 |  |  |
+
 
 ## API
 ### 通用 ColumnPlus 类型
@@ -176,38 +408,6 @@ function App() {
 | --- | --- | --- |
 | col | ColProps | antd ColProp 属性 |
 
-
-### AntFormPlus
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| columns | 表单项配置数组 | `ColumnPlus[]` | - |
-| row | antd Row 组件的 props | `RowProps` | `{}` |
-| ... | 其他属性与 [Ant Design Form](https://ant-design.antgroup.com/components/form-cn?locale=zh-CN#form) 组件的属性相同 |  |  |
-
-
-其他属性与 [Ant Design Form](https://ant-design.antgroup.com/components/form-cn?locale=zh-CN#form) 组件的属性相同。
-
-### AntSearchFormPlus
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| columns | 表单项配置数组 | `ColumnPlus[]` | - |
-| row | antd Row 组件的 props | `RowProps` | `{ gutter: 24 }` |
-| ignoreRules | 是否忽略表单校验规则 | `boolean` | `true` |
-| submitButtonText | 查询按钮文本 | `string` | `"查询"` |
-| resetButtonText | 重置按钮文本 | `string` | `"重置"` |
-| ... | 其他属性与 [Ant Design Form](https://ant-design.antgroup.com/components/form-cn?locale=zh-CN#form) 组件的属性相同 |  |  |
-
-
-其他属性将透传给 antd Form 组件。
-
-### AntTablePlus
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| columns | 表格列的配置描述，继承自 antd Table 的 columns，扩展了部分属性 | `ColumnPlus[]` | - |
-| ... | 其他属性与 [Ant Design Table](https://ant-design.antgroup.com/components/table-cn/#Table) 组件的属性相同。 |  |  |
-
-
-其他属性与 [Ant Design Table](https://ant-design.antgroup.com/components/table-cn/#Table) 组件的属性相同。
 
 ## 注意事项
 1. 组件依赖于 `antd5.x` 和 `react`，请确保项目中已安装这些依赖
