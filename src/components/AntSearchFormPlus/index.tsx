@@ -8,7 +8,7 @@ import {
   type RowProps,
 } from "antd";
 import type { ColumnPlus } from "@/types/index";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import AntFormItemWrap from "@/components/AntFormItemWrap";
 import getOptionsByColumns from "@/utils/src/getOptionsByColumns";
 import RenderFormItem from "@/components/RenderFormItem";
@@ -30,7 +30,7 @@ export default function AntSearchFormPlus<Values>({
   submitButtonText?: string;
   resetButtonText?: string;
   children?: React.ReactNode;
-} & Omit<FormProps<Values>, "form">) {
+} & FormProps<Values>) {
   const [form] = Form.useForm<Values>();
   const [fields, setFields] = useState<ColumnPlus[]>(
     columns
@@ -47,16 +47,18 @@ export default function AntSearchFormPlus<Values>({
     }
   }, [columns]);
 
-  const onQuery = useCallback(() => {
+  const onQuery = () => {
+    if (rest?.form) return;
     form.submit();
-  }, [form]);
+  };
 
-  const onReset = useCallback(() => {
+  const onReset = () => {
+    if (rest?.form) return;
     form.resetFields();
-  }, [form]);
+  };
 
   return (
-    <Form {...rest} form={form}>
+    <Form form={form} {...rest}>
       <Row {...row}>
         {fields.map((column, index) => (
           <AntFormItemWrap
