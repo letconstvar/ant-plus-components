@@ -20,6 +20,7 @@ export default function AntSearchFormPlus<Values>({
   ignoreRules = true,
   submitButtonText = "查询",
   resetButtonText = "重置",
+  children,
   ...rest
 }: {
   columns: ColumnPlus[];
@@ -28,8 +29,9 @@ export default function AntSearchFormPlus<Values>({
   col?: ColProps;
   submitButtonText?: string;
   resetButtonText?: string;
-} & FormProps<Values>) {
-  const [form] = Form.useForm();
+  children?: React.ReactNode;
+} & Omit<FormProps<Values>, "form">) {
+  const [form] = Form.useForm<Values>();
   const [fields, setFields] = useState<ColumnPlus[]>(
     columns
       .filter((column) => !column.hideInSearchForm)
@@ -54,7 +56,7 @@ export default function AntSearchFormPlus<Values>({
   }, [form]);
 
   return (
-    <Form form={form} {...rest}>
+    <Form {...rest} form={form}>
       <Row {...row}>
         {fields.map((column, index) => (
           <AntFormItemWrap
@@ -71,16 +73,20 @@ export default function AntSearchFormPlus<Values>({
             {RenderFormItem(column)}
           </AntFormItemWrap>
         ))}
-        <Col style={{ flex: 1, textAlign: "right" }}>
-          <Button
-            type="primary"
-            onClick={onQuery}
-            style={{ marginRight: "10px" }}
-          >
-            {submitButtonText}
-          </Button>
-          <Button onClick={onReset}>{resetButtonText}</Button>
-        </Col>
+        {children ? (
+          children
+        ) : (
+          <Col style={{ flex: 1, textAlign: "right" }}>
+            <Button
+              type="primary"
+              onClick={onQuery}
+              style={{ marginRight: "10px" }}
+            >
+              {submitButtonText}
+            </Button>
+            <Button onClick={onReset}>{resetButtonText}</Button>
+          </Col>
+        )}
       </Row>
     </Form>
   );
