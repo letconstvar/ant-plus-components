@@ -22,7 +22,8 @@ type ValueType =
   | "tree-select";
 
 type Search = {
-  col: ColProps;
+  col?: ColProps;
+  render?: (value: ColumnPlus) => React.ReactNode;
 };
 
 export interface ColumnPlus extends ColumnType {

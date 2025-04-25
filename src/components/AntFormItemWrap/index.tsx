@@ -5,7 +5,6 @@ export default function AntFormItemWrap({
   children,
   column,
   col,
-  isSearchForm = true,
 }: {
   isSearchForm?: boolean;
   children: React.ReactNode;

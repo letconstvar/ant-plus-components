@@ -40,10 +40,14 @@ export default function AntFormPlus<Values>({
             col={column?.form?.col || col}
             key={column.dataIndex + index}
           >
-            {RenderFormItem(column)}
+            {column?.searchForm?.render
+              ? column?.searchForm.render(column)
+              : column?.form?.render
+              ? column?.form.render(column)
+              : RenderFormItem(column)}
           </AntFormItemWrap>
         ))}
       </Row>
     </Form>
   );
-};
+}
