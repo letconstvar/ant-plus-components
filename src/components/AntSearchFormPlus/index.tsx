@@ -10,7 +10,7 @@ import {
 import type { ColumnPlus } from "@/types/index";
 import { useEffect, useState } from "react";
 import AntFormItemWrap from "@/components/AntFormItemWrap";
-import getOptionsByColumns from "@/utils/src/getOptionsByColumns";
+import filterOptionsByColumns from "@/utils/src/filterOptionsByColumns";
 import RenderFormItem from "@/components/RenderFormItem";
 
 export default function AntSearchFormPlus<Values>({
@@ -18,20 +18,20 @@ export default function AntSearchFormPlus<Values>({
   row = { gutter: 24 },
   col = { span: 6 },
   ignoreRules = true,
-  onReset,
   submitButtonText = "查询",
   resetButtonText = "重置",
   children,
+  onReset,
   ...rest
 }: {
   columns: ColumnPlus[];
   ignoreRules?: boolean;
   row?: RowProps;
   col?: ColProps;
-  onReset?: (values: Values) => void;
   submitButtonText?: string;
   resetButtonText?: string;
   children?: React.ReactNode;
+  onReset?: (values: Values) => void;
 } & FormProps<Values>) {
   const [form] = Form.useForm<Values>();
   const [fields, setFields] = useState<ColumnPlus[]>(
@@ -45,7 +45,7 @@ export default function AntSearchFormPlus<Values>({
 
   useEffect(() => {
     if (columns) {
-      getOptionsByColumns(columns, "hideInSearchForm", setFields);
+      filterOptionsByColumns(columns, "hideInSearchForm", setFields);
     }
   }, [columns]);
 

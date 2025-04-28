@@ -21,7 +21,7 @@ type ValueType =
   | "time-picker"
   | "tree-select";
 
-type Search = {
+type CustomFormItem = {
   col?: ColProps;
   render?: (value: ColumnPlus) => React.ReactNode;
 };
@@ -35,6 +35,6 @@ export interface ColumnPlus extends ColumnType {
   hideInSearchForm?: boolean;
   hideInForm?: boolean;
   hideInTable?: boolean;
-  searchForm?: Search;
-  form?: Search;
+  searchForm?: CustomFormItem;
+  form?: CustomFormItem;
 }

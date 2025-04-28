@@ -2,7 +2,7 @@ import { Form, Row, type ColProps, type FormProps, type RowProps } from "antd";
 import type { ColumnPlus } from "@/types/index";
 import { useEffect, useState } from "react";
 
-import getOptionsByColumns from "@/utils/src/getOptionsByColumns";
+import filterOptionsByColumns from "@/utils/src/filterOptionsByColumns";
 import RenderFormItem from "@/components/RenderFormItem";
 import AntFormItemWrap from "@/components/AntFormItemWrap";
 
@@ -27,7 +27,7 @@ export default function AntFormPlus<Values>({
 
   useEffect(() => {
     if (columns) {
-      getOptionsByColumns(columns, "hideInForm", setFields);
+      filterOptionsByColumns(columns, "hideInForm", setFields);
     }
   }, [columns]);
 

@@ -1,7 +1,7 @@
 import type { ColumnPlus } from "@/types/index";
 import columnOptionStores from "./columnOptionStores";
 
-export default async function getOptionsByColumns(
+export default async function filterOptionsByColumns(
   columns: ColumnPlus[],
   filterKey: "hideInSearchForm" | "hideInForm" | "hideInTable",
   callback: (columns: ColumnPlus[]) => void
