@@ -1,28 +1,32 @@
-# Ant Plus Components
+# ant-plus-components
+
 基于 Ant Design 组件库的增强版本，提供更便捷的配置方式和更丰富的功能。
 
 ## 安装
+
 ```bash
 npm install ant-plus-components
-# 或
-yarn add ant-plus-components
-# 或
-pnpm add ant-plus-components
+# 或yarn add ant-plus-components
+# 或pnpm add ant-plus-components
 ```
 
 ## 组件列表
+
 ### AntFormPlus
+
 基于 Ant Design Form 组件的表单增强版本，提供更便捷的表单项配置和布局功能。
 
-#### 特性
-+ 🚀 基于 Ant Design Form 组件开发
-+ 📦 自动处理表单布局
-+ 🎨 支持丰富的表单项类型
-+ 🔄 支持异步选项加载
-+ 🎯 支持表单项校验规则配置
-+ 支持通过 `hideInForm` 属性控制表单项的显示/隐藏
+### 特性
 
-#### 基础示例
+- 🚀 基于 Ant Design Form 组件开发
+- 📦 自动处理表单布局
+- 🎨 支持丰富的表单项类型
+- 🔄 支持异步选项加载
+- 🎯 支持表单项校验规则配置
+- 支持通过 `hideInForm` 属性控制表单项的显示/隐藏
+
+### 基础示例
+
 ```tsx
 import { AntFormPlus, type ColumnPlus } from "ant-plus-components";
 import { Button, Form } from "antd";
@@ -57,6 +61,37 @@ const columns: ColumnPlus[] = [
     fieldProps: {
       placeholder: "请输入年龄",
       allowClear: true,
+    },
+  },
+  {
+    title: "图片",
+    dataIndex: "photo",
+    key: "photo",
+    hideInTable: true,
+    hideInSearchForm: true,
+    formItemProps: {
+      getValueFromEvent: normFile,
+      valuePropName: "fileList",
+      rules: [
+        {
+          required: true,
+          message: t("select"),
+        },
+      ],
+    },
+    form: {
+      render: () => {
+        return (
+          <Upload
+            listType="picture-card"
+            accept="image/*"
+            maxCount={1}
+            customRequest={(opt) => customUploadAction(opt)}
+          >
+            <PlusOutlined />
+          </Upload>
+        );
+      },
     },
   },
   {
@@ -112,27 +147,30 @@ export default function TextForm() {
 
 ```
 
-#### API
+### API
+
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | columns | 表单配置项 | `ColumnPlus[]` | - |
-| row | <font style="color:rgba(0, 0, 0, 0.88);">栅格化系统，详情请看 </font>[ant row](https://ant-design.antgroup.com/components/grid-cn#row) | `RowProps` | `{ gutter: 24 }` |
-| col | <font style="color:rgba(0, 0, 0, 0.88);">栅格化系统，详情请看 </font>[ant col](https://ant-design.antgroup.com/components/grid-cn#col) | `ColProps` | `{ span: 6 }` |
-| ... | 其它属性均与 Ant Design [表单组件](https://ant-design.antgroup.com/components/form-cn#api)保持一致 |  |  |
-
+| row | 栅格化系统，详情请看 [ant row](https://ant-design.antgroup.com/components/grid-cn#row) | `RowProps` | `{ gutter: 24 }` |
+| col | 栅格化系统，详情请看 [ant col](https://ant-design.antgroup.com/components/grid-cn#col) | `ColProps` | `{ span: 6 }` |
+| … | 其它属性均与 Ant Design [表单组件](https://ant-design.antgroup.com/components/form-cn#api)保持一致 |  |  |
 
 ### AntSearchFormPlus
+
 基于 Ant Design Form 组件的搜索表单增强版本，提供更便捷的表单项配置和布局功能。
 
-#### 特性
-+ 🚀 基于 Ant Design Form 组件开发
-+ 📦 自动处理表单布局
-+ 🎨 支持丰富的表单项类型
-+ 🔍 内置查询和重置功能
-+ 🎯 支持异步选项加载
-+ 支持通过 `hideInSearchForm` 属性控制搜索表单项的显示/隐藏
+### 特性
 
-#### 基础示例
+- 🚀 基于 Ant Design Form 组件开发
+- 📦 自动处理表单布局
+- 🎨 支持丰富的表单项类型
+- 🔍 内置查询和重置功能
+- 🎯 支持异步选项加载
+- 支持通过 `hideInSearchForm` 属性控制搜索表单项的显示/隐藏
+
+### 基础示例
+
 ```tsx
 import { AntSearchFormPlus, type ColumnPlus } from "ant-plus-components";
 import { Button, Form } from "antd";
@@ -244,33 +282,38 @@ export default function TestSearchForm() {
 
 ```
 
-#### API
+### API
+
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | columns | 表单配置项 | `ColumnPlus[]` | - |
-| row | <font style="color:rgba(0, 0, 0, 0.88);">栅格化系统，详情请看 </font>[ant row](https://ant-design.antgroup.com/components/grid-cn#row) | `RowProps` | `{ gutter: 24 }` |
-| col | <font style="color:rgba(0, 0, 0, 0.88);">栅格化系统，详情请看 </font>[ant col](https://ant-design.antgroup.com/components/grid-cn#col) | `ColProps` | `{ span: 6 }` |
-| ignoreRules | <font style="color:rgba(0, 0, 0, 0.88);">忽略表单校验项</font> | `boolean` | `true` |
-| submitButtonText | <font style="color:rgba(0, 0, 0, 0.88);">查询按钮文字</font> | `string` | 查询 |
-| resetButtonText | <font style="color:rgba(0, 0, 0, 0.88);">重置按钮文字</font> | `string` | 重置 |
-| children | <font style="color:rgba(0, 0, 0, 0.88);">当使用子组件时，</font>`<font style="color:rgba(0, 0, 0, 0.88);">submitButtonText</font>`<font style="color:rgba(0, 0, 0, 0.88);">和</font>`<font style="color:rgba(0, 0, 0, 0.88);">resetButtonText</font>`<font style="color:rgba(0, 0, 0, 0.88);">会失效</font> | `React.ReactNode` | - |
-| ... | 其它属性均与 Ant Design [表单组件](https://ant-design.antgroup.com/components/form-cn#api)保持一致 |  |  |
+| row | 栅格化系统，详情请看 [ant row](https://ant-design.antgroup.com/components/grid-cn#row) | `RowProps` | `{ gutter: 24 }` |
+| col | 栅格化系统，详情请看 [ant col](https://ant-design.antgroup.com/components/grid-cn#col) | `ColProps` | `{ span: 6 }` |
+| ignoreRules | 忽略表单校验项 | `boolean` | `true` |
+| submitButtonText | 查询按钮文字 | `string` | 查询 |
+| resetButtonText | 重置按钮文字 | `string` | 重置 |
+| onReset | 点击重置按钮的回调事件 | `onReset?: (values: Values) => void;` | - |
+| children | 当使用子组件时，`submitButtonText`和`resetButtonText`会失效 | `React.ReactNode` | - |
+| … | 其它属性均与 Ant Design [表单组件](https://ant-design.antgroup.com/components/form-cn#api)保持一致 |  |  |
 
+### 注意事项
 
-#### <font style="color:#DF2A3F;">注意事项</font>
-<font style="color:rgba(0, 0, 0, 0.88);">当 AntSearchFormPlus 传递子组件时，</font>`<font style="color:rgba(0, 0, 0, 0.88);">submitButtonText</font>`<font style="color:rgba(0, 0, 0, 0.88);">和</font>`<font style="color:rgba(0, 0, 0, 0.88);">resetButtonText</font>`<font style="color:rgba(0, 0, 0, 0.88);">会失效，同时也需传递</font>`<font style="color:rgba(0, 0, 0, 0.88);">form</font>`<font style="color:rgba(0, 0, 0, 0.88);">属性。</font>
+当 AntSearchFormPlus 传递子组件时，`submitButtonText`和`resetButtonText`会失效，同时也需传递`form`属性。
 
 ### AntTablePlus
+
 基于 Ant Design Table 组件的增强版本，提供更便捷的列配置和过滤功能。
 
-#### 特性
-+ 完全继承 Ant Design Table 的所有功能和属性
-+ 支持通过 `hideInTable` 属性控制列的显示/隐藏
-+ 支持表格分页、排序、筛选、自定义渲染等功能
-+ 与 AntFormPlus、AntSearchFormPlus 组件无缝集成
-+ 使用 TypeScript 编写，提供完整的类型定义
+### 特性
 
-#### 基础示例
+- 完全继承 Ant Design Table 的所有功能和属性
+- 支持通过 `hideInTable` 属性控制列的显示/隐藏
+- 支持表格分页、排序、筛选、自定义渲染等功能
+- 与 AntFormPlus、AntSearchFormPlus 组件无缝集成
+- 使用 TypeScript 编写，提供完整的类型定义
+
+### 基础示例
+
 ```tsx
 import { AntTablePlus, type ColumnPlus } from "ant-plus-components";
 import { Space } from "antd";
@@ -356,15 +399,17 @@ export default function TestTable() {
 }
 ```
 
-#### API
+### API
+
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | columns | 表格列配置项 | `ColumnPlus[]` | - |
-| ... | 其它属性均与 Ant Design [表格组件](https://ant-design.antgroup.com/components/table-cn#column)保持一致 |  |  |
-
+| … | 其它属性均与 Ant Design [表格组件](https://ant-design.antgroup.com/components/table-cn#column)保持一致 |  |  |
 
 ## API
+
 ### 通用 ColumnPlus 类型
+
 所有组件共享的列配置类型：
 
 | 参数 | 说明 | 类型 | 默认值 |
@@ -378,41 +423,42 @@ export default function TestTable() {
 | hideInTable | 是否在表格中隐藏 | `boolean` | `false` |
 | hideInForm | 是否在表单中隐藏 | `boolean` | `false` |
 | hideInSearchForm | 是否在搜索表单中隐藏 | `boolean` | `false` |
-| searchForm | 搜索表单布局配置 | `{ col: ColProps }` | `{ col: { span: 6 } }` |
-| form | 表单布局配置 | `{ col: ColProps }` | `{ col: { span: 24 } }` |
-
+| searchForm | 搜索表单布局配置 | `CustomForm` | `{ col: { span: 6 } }` |
+| form | 表单布局配置 | `CustomForm` | `{ col: { span: 24 } }` |
 
 ### 支持的表单项类型（ValueType）
-+ `select`
-+ `input`
-+ `checkbox`
-+ `radio`
-+ `switch`
-+ `input-number`
-+ `cascader`
-+ `date-picker`
-+ `range-picker`
-+ `time-picker`
-+ `tree-select`
+
+- `select`
+- `input`
+- `checkbox`
+- `radio`
+- `switch`
+- `input-number`
+- `cascader`
+- `date-picker`
+- `range-picker`
+- `time-picker`
+- `tree-select`
 
 ### Option 类型
+
 | 字段名 | 类型 | 描述 |
 | --- | --- | --- |
 | label | string | 标签 |
 | value | unknown | 值 |
 | children | Option[] | 子选项，用于级联选择 |
 
+### CustomForm 类型
 
-### Search 类型
-| 字段名 | 类型 | 描述 |
-| --- | --- | --- |
-| col | ColProps | antd ColProp 属性 |
-
+| 参数 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| col | 同 `Antd` 中的 `ColProps`  属性 | `ColProps` | - |
+| render | 自定义渲染表单项（文件上传等） | `(value: ColumnPlus) => React.ReactNode` | - |
 
 ## 注意事项
+
 1. 组件依赖于 `antd5.x` 和 `react`，请确保项目中已安装这些依赖
 2. 异步选项加载时，确保返回的数据结构符合 `Option[]` 类型定义
 3. 表单项的布局可以通过 `form.col` 和 `searchForm.col` 进行配置
 4. 组件继承了对应 antd 组件的所有属性，可以通过这些属性实现更复杂的功能
 5. AntFormPlus 没有 `ref` 属性，建议通过 `Form.useForm` 对表单数据域进行交互
-

@@ -1,7 +1,7 @@
 {
   "type": "module",
   "name": "ant-plus-components",
-  "version": "0.0.7-beta.6",
+  "version": "0.0.7-beta.7",
   "description": "基于 Ant Design 的增强型组件库",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
