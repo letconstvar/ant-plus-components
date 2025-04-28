@@ -18,6 +18,7 @@ export default function AntSearchFormPlus<Values>({
   row = { gutter: 24 },
   col = { span: 6 },
   ignoreRules = true,
+  onReset,
   submitButtonText = "查询",
   resetButtonText = "重置",
   children,
@@ -27,6 +28,7 @@ export default function AntSearchFormPlus<Values>({
   ignoreRules?: boolean;
   row?: RowProps;
   col?: ColProps;
+  onReset?: (values: Values) => void;
   submitButtonText?: string;
   resetButtonText?: string;
   children?: React.ReactNode;
@@ -52,9 +54,12 @@ export default function AntSearchFormPlus<Values>({
     form.submit();
   };
 
-  const onReset = () => {
+  const handleReset = () => {
     if (rest?.form) return;
     form.resetFields();
+    if (onReset) {
+      onReset(form.getFieldsValue());
+    }
   };
 
   return (
@@ -72,7 +77,9 @@ export default function AntSearchFormPlus<Values>({
               },
             }}
           >
-            {RenderFormItem(column)}
+            {column?.searchForm?.render
+              ? column.searchForm.render(column)
+              : RenderFormItem(column)}
           </AntFormItemWrap>
         ))}
         {children ? (
@@ -86,7 +93,7 @@ export default function AntSearchFormPlus<Values>({
             >
               {submitButtonText}
             </Button>
-            <Button onClick={onReset}>{resetButtonText}</Button>
+            <Button onClick={handleReset}>{resetButtonText}</Button>
           </Col>
         )}
       </Row>
